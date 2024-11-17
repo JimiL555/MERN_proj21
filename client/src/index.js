@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client'; // Use createRoot for React 18
 import App from './App'; // Assuming your main app component is named App.js
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 
@@ -9,11 +9,15 @@ const client = new ApolloClient({
   cache: new InMemoryCache(), // Caching mechanism for Apollo
 });
 
-ReactDOM.render(
+// Get the root element from the DOM
+const container = document.getElementById('root'); // Ensure this matches your index.html div ID
+const root = createRoot(container); // Create a React root
+
+// Render the App within ApolloProvider
+root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <App />
     </ApolloProvider>
-  </React.StrictMode>,
-  document.getElementById('root') // Ensure this matches your index.html div ID
+  </React.StrictMode>
 );
